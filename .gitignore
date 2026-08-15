@@ -1,0 +1,16 @@
+# ---- local artifacts / personal data (never shipped) ----
+_regsum.txt
+calibration.jsonl
+profiles/
+tests/lobsang.txt
+tests/chat_test.txt
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.env

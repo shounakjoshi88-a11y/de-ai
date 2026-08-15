@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ece1ca">
+<title>Red Pencil DE-AI · The Proof Page</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4.06 7.94 7.94 4.06 15.94 11.06 11.06 15.94z' fill='%23c2452d'/%3E%3Cpath d='M11.06 15.94 15.94 11.06 16 16z' fill='%23e2cfa2'/%3E%3Cpath d='M14.5 15.5 15.5 14.5 16 16z' fill='%232e2417'/%3E%3Cpath d='M16 16h8.4M11 21l10-10' stroke='%23c2452d' stroke-width='2.8' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400..700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+<style>
+  :root {
+    --paper: #ece1ca;
+    --surface: #f8f1e1;
+    --ink: #2e2417;
+    --ink-2: #6d5f47;
+    --ink-3: #a29378;
+    --line: rgba(46, 36, 23, .28);
+    --line-soft: rgba(46, 36, 23, .14);
+    --red: #c2452d;
+    --red-soft: rgba(194, 69, 45, .10);
+    --amber: #c9962e;
+    --amber-soft: rgba(201, 150, 46, .14);
+    --blue: #3f6b95;
+    --blue-soft: rgba(63, 107, 149, .12);
+    --green: #4e7d54;
+    --green-soft: rgba(78, 125, 84, .12);
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --ease: cubic-bezier(.2, .7, .3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font: 14px/1.6 var(--mono);
+    min-height: 100vh;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+    scrollbar-color: var(--ink) var(--paper);
+  }
+  ::selection { background: var(--ink); color: var(--paper); }
+  a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--red); }
+  ::-webkit-scrollbar { width: 13px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--ink); border: 3px solid var(--paper); border-radius: 0; }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 0; z-index: 60;
+    background: var(--ink); color: var(--paper); padding: 10px 18px;
+  }
+  .skip-link:focus { left: 0; }
+
+  header {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 18px;
+    padding: 14px 26px;
+    background: var(--paper);
+    border-bottom: 3px double var(--ink);
+    flex-wrap: wrap; row-gap: 8px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--serif); font-weight: 700; font-size: 24px;
+    letter-spacing: .01em; color: var(--ink);
+  }
+  .logo .mark {
+    width: 31px; height: 31px; flex: none; display: block;
+    transition: transform .3s var(--ease);
+  }
+  .logo:hover .mark { transform: rotate(12deg) scale(1.05); }
+  .logo .name { display: inline-flex; align-items: baseline; gap: 9px; font-size: 21px; }
+  .logo .name i { font-style: italic; font-weight: 600; }
+  .logo .name em { font-style: normal; color: var(--red); }
+  header .tag { color: var(--ink-2); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; }
+  header .right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .tagbox {
+    font-size: 10.5px; font-weight: 600; color: var(--ink-2);
+    border: 1px solid var(--line); background: transparent;
+    padding: 4px 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .tagbox.red { color: var(--red); border-color: var(--red); }
+  kbd {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink);
+    border: 1px solid var(--line); border-bottom-width: 2px;
+    padding: 0 5px; background: var(--surface);
+  }
+
+  /* ---- mode tabs ---- */
+  .tabs {
+    display: flex; gap: 28px;
+    border-bottom: 2px double var(--ink);
+    padding: 0 26px; max-width: 1600px; margin: 0 auto;
+  }
+  .tab {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 600 17px var(--serif); color: var(--ink-2);
+    background: none; border: none; border-bottom: 2px solid transparent;
+    padding: 13px 4px 11px; cursor: pointer;
+    transition: color .2s var(--ease), transform .2s var(--ease);
+    touch-action: manipulation;
+  }
+  .tab:hover { color: var(--ink); background: none; transform: translateY(-1px); }
+  .tab:active { transform: translateY(0); }
+  .tab:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .tab::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+    background: var(--red);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s var(--ease);
+  }
+  .tab.active { color: var(--ink); }
+  .tab.active::after { transform: scaleX(1); }
+  .tab .tab-sub { font: 600 9.5px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+
+  main {
+    display: grid; grid-template-columns: minmax(420px, 5fr) minmax(380px, 4fr);
+    gap: 26px; padding: 26px 26px 34px; max-width: 1600px; margin: 0 auto;
+    align-items: start;
+  }
+  @media (max-width: 1080px) { main { grid-template-columns: 1fr; } }
+
+  /* ---- the page ---- */
+  .sheet {
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 10px 30px rgba(46,36,23,.14);
+    position: relative;
+    animation: rise .45s var(--ease) both;
+  }
+  .sheet .fold {
+    padding: 13px 18px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--line);
+  }
+  .sheet .fold .title {
+    font-family: var(--serif); font-weight: 600; font-size: 18px; letter-spacing: .01em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sheet .fold .title::before { content: ""; width: 16px; height: 1.5px; background: var(--red); display: inline-block; flex: none; }
+  .sheet .fold .spacer { flex: 1; }
+  .sheet .count { font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; text-transform: uppercase; letter-spacing: .08em; }
+
+  textarea {
+    display: block; width: 100%; min-height: 430px; max-height: calc(100vh - 250px); resize: vertical;
+    background:
+      linear-gradient(90deg, transparent 0 54px, rgba(194,69,45,.30) 54px 55px, transparent 55px),
+      repeating-linear-gradient(0deg, transparent 0 26px, rgba(46,36,23,.07) 26px 27px);
+    color: var(--ink);
+    border: none; padding: 20px 22px 22px 72px;
+    font: 13.5px/27px var(--mono);
+    outline: none; caret-color: var(--red);
+    position: relative; z-index: 2;
+    transition: box-shadow .25s var(--ease);
+  }
+  textarea:focus-visible { box-shadow: inset 0 0 0 2px var(--red); }
+  textarea::placeholder { color: rgba(109, 95, 71, .55); }
+
+  .sheet .ribbon { padding: 13px 18px; display: flex; gap: 9px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--line); position: relative; z-index: 2; }
+  .sheet .ribbon .chk { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); cursor: pointer; user-select: none; }
+  .sheet .ribbon .chk input { accent-color: var(--accent); }
+  .sheet .ribbon button[hidden] { display: none; }
+  button {
+    font: 600 12px var(--mono); letter-spacing: .08em;
+    color: var(--ink); background: transparent;
+    border: 1px solid var(--ink);
+    padding: 8px 14px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: background .15s var(--ease), color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
+    touch-action: manipulation;
+  }
+  button:hover { background: var(--ink); color: var(--surface); transform: translateY(-1px); box-shadow: 0 3px 0 rgba(46,36,23,.25); }
+  button:active { transform: translateY(0); box-shadow: none; }
+  button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  button.primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  button.primary:hover { background: #000; }
+  button:disabled { opacity: .35; pointer-events: none; transform: none; box-shadow: none; }
+
+  .summary { display: flex; gap: 9px; flex-wrap: wrap; padding: 0 18px 14px; position: relative; z-index: 2; }
+  .chip {
+    font-size: 10.5px; font-weight: 600; color: var(--ink-2);
+    border: 1px solid var(--line); background: transparent;
+    padding: 4px 10px; font-variant-numeric: tabular-nums; text-transform: uppercase; letter-spacing: .08em;
+    animation: rise .3s var(--ease) both;
+  }
+  .chip.err b { color: var(--red); } .chip.warn b { color: #9a6d14; } .chip.info b { color: var(--blue); }
+
+  /* ---- panel ---- */
+  .panel {
+    background: var(--surface); border: 1px solid var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 10px 30px rgba(46,36,23,.14);
+    overflow: hidden;
+    animation: rise .45s var(--ease) .07s both;
+  }
+  .panel .head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 18px; border-bottom: 1px solid var(--line);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .22em;
+    color: var(--ink-2);
+  }
+  .panel .head::before { content: "✕"; color: var(--red); font-size: 10px; }
+  .panel .body {
+    padding: 18px;
+    max-height: calc(100vh - 250px); overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: thin; scrollbar-color: rgba(46,36,23,.3) transparent;
+  }
+  .panel .body::-webkit-scrollbar { width: 10px; }
+  .panel .body::-webkit-scrollbar-track { background: transparent; }
+  .panel .body::-webkit-scrollbar-thumb { background: rgba(46,36,23,.3); border: 2px solid var(--surface); }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes toastIn { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  /* ---- stats ---- */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 11px; }
+  .stat {
+    background: transparent;
+    border: 1px solid var(--line-soft); border-top: 2px solid var(--ink);
+    padding: 10px 13px;
+    animation: rise .4s var(--ease) both;
+  }
+  .stat .v { font-size: 22px; font-weight: 600; font-family: var(--serif); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .stat .k { font-size: 9.5px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .12em; margin-top: 3px; }
+  .stat .v.good { color: var(--green); } .stat .v.warn { color: #9a6d14; } .stat .v.red { color: var(--red); } .stat .v.blue { color: var(--blue); }
+
+  .stat-block { margin-top: 22px; animation: rise .45s var(--ease) both; }
+  .stat-block .lbl {
+    font-size: 10px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .18em;
+    margin-bottom: 10px; display: flex; justify-content: space-between; gap: 12px;
+    border-top: 1px solid var(--line-soft); padding-top: 9px;
+  }
+  .stat-block .lbl b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat-block .lbl b.good { color: var(--green); }
+  .stat-block .lbl b.warn { color: #9a6d14; }
+  .stat-block .lbl b.red { color: var(--red); }
+
+  .result-block .lbl { align-items: center; }
+  .result-block .lbl .mini {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--paper); background: var(--ink);
+    border: 1px solid var(--ink); padding: 5px 12px; cursor: pointer;
+    transition: background .15s var(--ease), color .15s var(--ease);
+  }
+  .result-block .lbl .mini:hover { background: var(--red); border-color: var(--red); }
+  .result-block .lbl .mini:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .result-out {
+    white-space: pre-wrap; word-break: break-word;
+    font-family: var(--serif); font-size: 15.5px; line-height: 1.75;
+    border: 1px solid var(--line); border-left: 3px solid var(--red);
+    background: var(--paper); padding: 16px 18px;
+    max-height: 340px; overflow-y: auto; overscroll-behavior: contain;
+  }
+  .result-out:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  .gauge {
+    position: relative; height: 12px; overflow: hidden;
+    border: 1px solid var(--ink); background: var(--surface);
+    display: flex;
+  }
+  .gauge .seg { height: 100%; border-right: 1px solid var(--surface); }
+  .gauge .seg:last-child { border-right: none; }
+  .gauge .marker {
+    position: absolute; top: -4px; width: 4px; height: 18px;
+    background: var(--ink);
+    transform: translateX(-50%); transition: left .5s var(--ease);
+    z-index: 2;
+  }
+  .gauge-scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--ink-3); margin-top: 6px; font-variant-numeric: tabular-nums; text-transform: uppercase; letter-spacing: .06em; }
+
+  .bars { display: flex; gap: 6px; align-items: flex-end; height: 58px; }
+  .bars .bar {
+    flex: 1; min-width: 5px; position: relative;
+    background: var(--ink);
+    transition: background .1s;
+    animation: grow .55s var(--ease) both;
+    transform-origin: bottom;
+  }
+  .bars .bar:hover { background: var(--red); }
+  .bars .bar .tip {
+    display: none; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: var(--surface);
+    padding: 3px 9px; font-size: 11px; white-space: nowrap; z-index: 5;
+  }
+  .bars .bar:hover .tip { display: block; }
+  .bars-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--ink-3); margin-top: 7px; }
+
+  /* ---- marginalia ---- */
+  .cat { border: 1px solid var(--line); margin-bottom: 11px; background: var(--surface); }
+  .cat > summary {
+    cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px;
+    padding: 10px 13px; user-select: none; border-bottom: 1px solid var(--line-soft);
+  }
+  .cat > summary::-webkit-details-marker { display: none; }
+  .cat > summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .cat > summary .caret { color: var(--red); font-size: 10px; transition: transform .15s var(--ease); }
+  .cat[open] > summary .caret { transform: rotate(90deg); }
+  .cat > summary .name { font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+  .badge {
+    font-size: 10.5px; padding: 1px 8px; font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line); color: var(--ink-2);
+    margin-left: auto;
+  }
+  .badge.err { color: var(--red); border-color: var(--red); }
+  .badge.warn { color: #9a6d14; border-color: var(--amber); }
+  .badge.info { color: var(--blue); border-color: var(--blue); }
+  .cat .items { padding: 9px; display: flex; flex-direction: column; gap: 8px; }
+
+  .tell {
+    border: 1px solid var(--line-soft); border-left: 2px solid var(--line);
+    background: var(--surface); padding: 8px 11px 8px 13px; cursor: pointer;
+    transition: background .15s var(--ease), border-color .15s var(--ease), transform .15s var(--ease);
+    animation: rise .3s var(--ease) both;
+    display: flex; gap: 11px; align-items: flex-start;
+  }
+  .tell:hover { background: rgba(46,36,23,.045); border-left-color: var(--ink); transform: translateX(2px); }
+  .tell:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .tell.err { border-left-color: var(--red); }
+  .tell.warn { border-left-color: var(--amber); }
+  .tell.info { border-left-color: var(--blue); }
+  .tell .callout {
+    flex: none; font-family: var(--serif); font-weight: 600; font-size: 15px; line-height: 1;
+    color: var(--red); margin-top: 2px; min-width: 14px; text-align: center;
+  }
+  .tell .body { min-width: 0; flex: 1; }
+  .tell .loc {
+    font-size: 10.5px; color: var(--ink-3); font-variant-numeric: tabular-nums;
+    display: flex; justify-content: space-between; gap: 10px;
+  }
+  .tell .loc .name { color: var(--ink-2); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; font-size: 10px; }
+  .tell .snip {
+    margin-top: 5px; font-size: 12px; line-height: 1.6;
+    max-height: 50px; overflow: hidden;
+    word-break: break-word;
+  }
+  .tell mark { background: rgba(194,69,45,.16); color: #8f2f1d; padding: 0 2px; }
+
+  /* ---- verdict ---- */
+  .verdict {
+    display: flex; gap: 16px; align-items: center;
+    border: 1px solid var(--ink); padding: 14px 18px; margin-bottom: 18px;
+    animation: rise .35s var(--ease) both;
+  }
+  .verdict .big { font: 700 32px var(--serif); line-height: 1; flex: none; }
+  .verdict .txt { font-size: 12.5px; color: var(--ink-2); }
+  .verdict .txt b { color: var(--ink); }
+  .verdict.good { background: var(--green-soft); border-color: var(--green); }
+  .verdict.good .big { color: var(--green); }
+  .verdict.bad { background: var(--red-soft); border-color: var(--red); }
+  .verdict.bad .big { color: var(--red); }
+
+  /* ---- diff ---- */
+  .diff {
+    margin-top: 4px; border: 1px solid var(--line);
+    max-height: 340px; overflow: auto; font-size: 12px; line-height: 1.65;
+    overscroll-behavior: contain;
+    scrollbar-color: var(--ink) var(--surface);
+  }
+  .diff .row { display: flex; gap: 10px; padding: 2px 10px; animation: rise .2s var(--ease) both; }
+  .diff .row .ln { color: var(--ink-3); min-width: 30px; text-align: right; user-select: none; flex: none; font-variant-numeric: tabular-nums; }
+  .diff .row.del { background: var(--red-soft); color: #8f2f1d; }
+  .diff .row.add { background: var(--green-soft); color: #33593a; }
+  .diff .row .tx { white-space: pre-wrap; overflow-wrap: anywhere; min-width: 0; }
+
+  /* ---- rewrite log ---- */
+  .rws { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+  .rw { display: flex; align-items: baseline; gap: 8px; padding: 4px 10px; font-size: 12px; line-height: 1.55; animation: rise .2s var(--ease) both; }
+  .rw:nth-child(odd) { background: rgba(194, 69, 45, .05); }
+  .rw-name { flex: none; color: var(--red); font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; max-width: 190px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rw-del { color: var(--ink-3); text-decoration: line-through; text-decoration-color: rgba(194, 69, 45, .55); }
+  .rw-arrow { flex: none; color: var(--red); }
+  .rw-add { color: var(--ink); font-weight: 600; }
+
+  /* ---- disruption ---- */
+  .disruption {
+    display: flex; gap: 18px; align-items: center;
+    background: var(--red); color: var(--surface);
+    border: 1px solid var(--ink);
+    padding: 15px 18px; margin: 0 0 18px;
+    animation: rise .35s var(--ease) both;
+  }
+  .disruption .big { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; flex: none; font-family: var(--serif); line-height: 1; }
+  .disruption .txt { font-size: 12px; color: rgba(248, 241, 225, .92); }
+  .disruption .txt b { color: var(--surface); }
+
+  .empty { color: var(--ink-2); text-align: center; padding: 50px 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .empty .big { font-family: var(--serif); font-size: 40px; color: var(--ink); }
+  .empty p { margin: 0; font-size: 12.5px; max-width: 34ch; text-wrap: balance; }
+
+  /* ---- markdown / code preview (MessageRenderer port) ---- */
+  .markdown-body { font: 14px/1.7 var(--mono); color: var(--ink); word-break: break-word; }
+  .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+    font-family: var(--serif); font-weight: 700; color: var(--ink);
+    margin: 18px 0 8px; letter-spacing: -.01em;
+  }
+  .markdown-body h1 { font-size: 25px; border-bottom: 1px solid var(--line-soft); padding-bottom: 5px; }
+  .markdown-body h2 { font-size: 20px; }
+  .markdown-body h3 { font-size: 17px; }
+  .markdown-body h4, .markdown-body h5, .markdown-body h6 { font-size: 15px; }
+  .markdown-body p { margin: 0 0 12px; }
+  .markdown-body ul, .markdown-body ol { margin: 0 0 12px; padding-left: 24px; }
+  .markdown-body li { margin: 3px 0; }
+  .markdown-body blockquote {
+    margin: 0 0 12px; padding: 2px 0 2px 14px;
+    border-left: 3px solid var(--red);
+    font-family: var(--serif); font-style: italic; color: var(--ink-2);
+  }
+  .markdown-body code {
+    font-family: var(--mono); font-size: 12px;
+    background: rgba(46,36,23,.07); border: 1px solid var(--line-soft);
+    padding: 1px 5px; word-break: break-all;
+  }
+  .markdown-body hr { border: none; border-top: 1px solid var(--line); margin: 18px 0; }
+  .markdown-body .tbl { overflow-x: auto; margin: 0 0 14px; }
+  .markdown-body table { border-collapse: collapse; font-size: 12.5px; min-width: 55%; }
+  .markdown-body th {
+    text-align: left; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: .08em;
+    color: var(--ink-2); border-bottom: 2px solid var(--ink); padding: 6px 10px;
+  }
+  .markdown-body td { border-bottom: 1px solid var(--line-soft); padding: 6px 10px; }
+  .markdown-body tr:hover td { background: rgba(46,36,23,.03); }
+
+  .code-block {
+    margin: 0 0 14px; border: 1px solid var(--ink);
+    background: #221a0e;
+    animation: rise .3s var(--ease) both;
+  }
+  .cb-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 11px; border-bottom: 1px solid rgba(248,241,225,.18);
+  }
+  .cb-lang {
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #c9b795;
+    border: 1px solid rgba(201,183,149,.35); padding: 2px 8px;
+  }
+  .cb-copy {
+    font-size: 10.5px; color: #c9b795; cursor: pointer; border: none;
+    background: transparent; letter-spacing: .08em; text-transform: uppercase;
+    transition: color .15s var(--ease);
+  }
+  .cb-copy:hover { color: var(--surface); background: transparent; transform: none; box-shadow: none; }
+  .cb-body {
+    margin: 0; padding: 12px 14px; overflow-x: auto;
+    font: 12.5px/1.65 var(--mono); color: #f3ead6;
+    scrollbar-color: #c9b795 #221a0e;
+  }
+  .cb-body::-webkit-scrollbar { height: 10px; }
+  .cb-body::-webkit-scrollbar-track { background: #221a0e; }
+  .cb-body::-webkit-scrollbar-thumb { background: #c9b795; border: 2px solid #221a0e; }
+
+  .code-block .token.comment, .code-block .token.prolog, .code-block .token.doctype, .code-block .token.cdata { color: #8f8165; font-style: italic; }
+  .code-block .token.punctuation { color: #b7a68a; }
+  .code-block .token.keyword, .code-block .token.important { color: #e0954a; }
+  .code-block .token.string, .code-block .token.char, .code-block .token.attr-value { color: #9cb57f; }
+  .code-block .token.number, .code-block .token.constant { color: #d3a95c; }
+  .code-block .token.function { color: #e8c06a; }
+  .code-block .token.class-name, .code-block .token.maybe-class-name { color: #cfc9b2; }
+  .code-block .token.operator, .code-block .token.entity { color: #c9b795; }
+  .code-block .token.boolean { color: #e58e5a; }
+  .code-block .token.tag { color: #e0954a; }
+  .code-block .token.attr-name, .code-block .token.property { color: #b3a37f; }
+  .code-block .token.builtin, .code-block .token.symbol { color: #a9c0a0; }
+  .code-block .token.variable, .code-block .token.parameter { color: #dfc9a0; }
+  .code-block .token.regex { color: #a3c9a8; }
+  .code-block .token.deleted { color: #e58e5a; }
+  .code-block .token.inserted { color: #9cb57f; }
+
+  .math-block {
+    margin: 0 0 14px; padding: 10px 12px;
+    border-left: 3px solid var(--red); background: rgba(194,69,45,.05);
+    overflow-x: auto; text-align: center;
+  }
+  .latex-raw {
+    margin: 0 0 14px; border: 1px solid var(--amber); background: var(--amber-soft);
+    padding: 10px 12px;
+  }
+  .latex-raw .lbl { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #9a6d14; font-weight: 700; }
+  .latex-raw pre { margin: 6px 0 0; font: 12px/1.6 var(--mono); white-space: pre-wrap; word-break: break-word; color: var(--ink); }
+  .markdown-body .katex-display { margin: 8px 0; }
+
+  footer { padding: 4px 26px 34px; max-width: 1600px; margin: 0 auto; font-size: 12px; }
+  footer details { border: 1px solid var(--line); background: var(--surface); padding: 12px 18px; color: var(--ink-2); }
+  footer summary { cursor: pointer; color: var(--ink); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 11px; }
+  footer summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  footer p { margin: 10px 0; }
+
+  .toast-wrap { position: fixed; bottom: 18px; right: 18px; display: flex; flex-direction: column; gap: 9px; z-index: 50; }
+  .toast {
+    background: var(--surface); border: 1px solid var(--ink); border-left: 4px solid var(--green);
+    color: var(--ink); padding: 10px 15px; font-size: 12px; font-weight: 600;
+    box-shadow: 0 8px 24px rgba(46,36,23,.18);
+    animation: toastIn .25s var(--ease);
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header>
+  <div class="logo">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M4.06 7.94 7.94 4.06 15.94 11.06 11.06 15.94z" fill="var(--red)"/>
+      <path d="M11.06 15.94 15.94 11.06 16 16z" fill="#e2cfa2"/>
+      <path d="M14.5 15.5 15.5 14.5 16 16z" fill="var(--ink)"/>
+      <path d="M16 16h8.4M11 21l10-10" stroke="var(--red)" stroke-width="2.8" fill="none"/>
+    </svg>
+    <span class="name"><i>Red pencil</i> <em>DE-AI</em></span>
+  </div>
+  <span class="tag">pattern-based AI-tell scanner &amp; safe autofix</span>
+  <div class="right">
+    <span class="tagbox red">no LLM · local</span>
+    <span class="tagbox"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Input type">
+  <button class="tab active" data-mode="prose" role="tab" aria-selected="true">Prose <span class="tab-sub">text tells</span></button>
+  <button class="tab" data-mode="code" role="tab" aria-selected="false">Code <span class="tab-sub">render + catch</span></button>
+</nav>
+
+<main id="main">
+  <section class="sheet" aria-label="Input">
+    <div class="fold">
+      <span class="title" id="sheet-title">Manuscript</span>
+      <span class="spacer"></span>
+      <span class="count" id="count">0 words</span>
+    </div>
+    <textarea id="input" name="input" autocomplete="off" spellcheck="false"
+      aria-label="Paste text or code to scan"
+      placeholder="Paste text here to be scanned for AI-typical patterns…"></textarea>
+    <div class="ribbon">
+      <button id="sample-ai" type="button">AI sample</button>
+      <button id="sample-human" type="button">Human sample</button>
+      <button id="clear" type="button">Clear</button>
+      <span class="spacer" style="flex:1"></span>
+      <label class="chk" title="Tune the rewrite rhythm to your own writing (Ninth Boon chapters)">
+        <input type="checkbox" id="use-profile"> Match my style
+      </label>
+      <button id="analyze" type="button" class="primary">Analyze</button>
+      <button id="fix" type="button" disabled>Apply safe fixes</button>
+      <button id="copy" type="button" disabled>Copy result</button>
+      <button id="download" type="button" disabled>Download .txt</button>
+    </div>
+    <div class="summary" id="summary" hidden></div>
+  </section>
+
+  <section class="panel" aria-label="Results">
+    <div class="head" id="panel-head">Proofread</div>
+    <div class="body" id="right"></div>
+  </section>
+</main>
+
+<footer>
+  <details>
+    <summary>Watermark notes &amp; sources</summary>
+    <p>Anthropic&rsquo;s Claude watermark (SynthID-Text, live since Aug 2026) is a statistical bias in token choices: there are no hidden characters, so the zero-width scan catches other tools&rsquo; injections, not the mark itself. The mark survives copy-paste and light edits; only real rewrites degrade it, so the disruption % above is the honest proxy for how far your edits go. Detection API announced by Anthropic (Aug 12, 2026), not yet callable. C2PA metadata applies to files (.png/.jpg/.svg), not pasted text. En dashes (Sohna&ndash;Alwar, 2001&ndash;2004) are legit ranges; flagged, never touched.</p>
+    <p>Code mode runs a vanilla port of Flux&rsquo;s <b>MessageRenderer</b> engine: <code>fixMalformedTags</code>, <code>repairLatex</code> (hallucinated <code>\int{x}</code>, <code>\big{</code>, unicode math), markdown blocks, tables, lists, KaTeX + raw-LaTeX fallback, Prism syntax highlighting. The renderer is the detector here: anything it has to repair gets flagged.</p>
+    <a href="https://www.anthropic.com/news/claude-text-watermark" target="_blank" rel="noopener">anthropic.com/news/claude-text-watermark</a>
+  </details>
+</footer>
+
+<div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+<script>
+/* ═══════════════ base ═══════════════ */
+const $ = id => document.getElementById(id);
+const ta = $('input');
+let current = null;
+let fixedText = null;
+let mode = 'prose';
+let CODE_REPAIRS = 0;
+
+const SAMPLE_AI = `Moreover, it is important to note that the system leverages a robust architecture to seamlessly deliver a seamless experience. Notably, the data flows through myriad layers, and the result is a testament to meticulous engineering. This isn't just an upgrade, it's a paradigm shift. The answer is clear: quite simply, we must foster innovation and showcase our findings.
+
+Furthermore, the water, the shop, and the wing stood quiet — and yet, the underlying narrative quietly underscores a pivotal moment. In conclusion, it goes without saying that the journey ahead is a realm of myriad possibilities, and the rest is history.`;
+
+const SAMPLE_HUMAN = `The water rose at dawn and the shop stayed shut. That was the first sign. By the second day the whole lane knew. No one said it, but the count went on, and the cold that had nothing to do with winter sat on the roofs.
+
+The well ran clean. The woman at the corner stall counted her notes twice, once for the morning, once for the dark, and both times the numbers came to the same thing, which was nothing at all, and she folded the notes into her palm the way her mother had folded hers, and the count went on. Somewhere a radio crackled in Hindi, then a man laughed, short and flat, the way you laugh when you don't want the night to hear you.
+
+In the shed, the boy kept his ledger: water, shop, wing, shed, drops, songs. Six columns, one for each morning. He did not write what he heard. He wrote what was left after.`;
+
+const SAMPLE_AI_CODE = `# Service onboarding — implementation notes
+
+ART>
+{"type": "line", "data": [1, 2, 3], "x": } // broken
+</<CHART>
+
+##Quickstart
+Clone the repo, install deps, run:
+
+\`\`\`bash
+npm install && npm run dev
+\`\`\`
+
+Then call the endpoint. The response shape:
+
+| field | type | required |
+| id | string | yes |
+| name | string |
+| email | string | yes |
+
+\`\`\`python
+import requests
+
+def fetch_user(user_id: str) -> dict:
+    resp = requests.get(f"/users/{user_id}")
+    resp.raise_for_status()
+    return resp.json()
+\`\`\`
+
+The loss objective: $$ \\int{x} dx + \\text{lim}_{n \\to \\infty} \\frac{1}{n} \\big{ x \\big} $$
+
+And a chart that parses clean:
+<CHART>
+{"type": "line", "data": [1,2,3], "x": [1,2,3]}
+</CHART>
+
+Unclosed display math below:
+$$ \\sum_{i=1}^n i^2`;
+
+const SAMPLE_HUMAN_CODE = `# Queue worker — deployment notes
+
+Run the worker with systemd:
+
+\`\`\`bash
+sudo systemctl start queue-worker
+\`\`\`
+
+Health endpoint returns:
+
+| field | type | required |
+|-------|------|----------|
+| id | string | yes |
+| name | string | yes |
+| email | string | yes |
+
+\`\`\`python
+def main():
+    print("worker up")
+\`\`\`
+
+The retry budget is finite: $\\Pr(\\text{retry}) \\le 0.05$ per job.`;
+
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function toast(msg) {
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  $('toasts').appendChild(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+function lineOf(text, offset) {
+  return text.slice(0, offset).split('\n').length;
+}
+
+ta.addEventListener('input', () => {
+  const n = (ta.value.trim().match(/\S+/g) || []).length;
+  $('count').textContent = n.toLocaleString() + ' words';
+});
+
+function highlight(lineText, matchText) {
+  const safe = esc(lineText);
+  const m = esc(matchText);
+  const idx = safe.indexOf(m);
+  if (idx === -1) return safe;
+  return safe.slice(0, idx) + '<mark>' + safe.slice(idx, idx + m.length) + '</mark>' + safe.slice(idx + m.length);
+}
+
+/* ═══════════════ mode switching ═══════════════ */
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  $('panel-head').textContent = m === 'code' ? 'Proofread · rendered' : 'Proofread';
+  $('sheet-title').textContent = m === 'code' ? 'Source' : 'Manuscript';
+  $('sample-ai').textContent = m === 'code' ? 'AI code sample' : 'AI sample';
+  $('sample-human').textContent = m === 'code' ? 'Human code sample' : 'Human sample';
+  $('analyze').textContent = m === 'code' ? 'Render & catch' : 'Analyze';
+  $('fix').textContent = m === 'code' ? 'Apply renderer fixes' : 'Apply safe fixes';
+  ta.placeholder = m === 'code'
+    ? 'Paste code or markdown here. The renderer draws it and flags what breaks…'
+    : 'Paste text here to be scanned for AI-typical patterns…';
+  resetAll();
+  $('right').innerHTML = m === 'code'
+    ? '<div class="empty"><div class="big">⌘</div><p>Paste code or markdown and press <b>Render &amp; catch</b>: the renderer draws it exactly like a chat app would, and flags every mistake it has to repair.</p></div>'
+    : '<div class="empty"><div class="big">✎</div><p>Paste text and press <b>Analyze</b>, or load a sample to see what AI-flavored text looks like under the red pencil.</p></div>';
+}
+
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+function resetAll() {
+  ta.value = '';
+  $('count').textContent = '0 words';
+  current = null; fixedText = null;
+  $('summary').hidden = true;
+  $('fix').disabled = true; $('copy').disabled = true; $('download').disabled = true;
+}
+
+/* ═══════════════ stats + animation ═══════════════ */
+function statCard(v, k, cls) {
+  return '<div class="stat"><div class="v ' + (cls || '') + '">' + v + '</div><div class="k">' + k + '</div></div>';
+}
+
+function countUp(el) {
+  const full = el.textContent;
+  const m = full.match(/^([\d.,]+)(.*)$/);
+  if (!m) return;
+  const target = parseFloat(m[1].replace(/,/g, ''));
+  const decimals = (m[1].split('.')[1] || '').length;
+  const suffix = m[2];
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const t0 = performance.now();
+  const dur = 750;
+  const step = now => {
+    const p = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = (target * e).toLocaleString('en-US', {
+      minimumFractionDigits: decimals, maximumFractionDigits: decimals
+    }) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function gauge(cv) {
+  return '<div class="gauge">' +
+    '<div class="seg" style="flex:0 0 56.7%;background:var(--red)"></div>' +
+    '<div class="seg" style="flex:0 0 33.3%;background:var(--green)"></div>' +
+    '<div class="seg" style="flex:1;background:var(--blue)"></div>' +
+    '<div class="marker" style="left:0%"></div></div>' +
+    '<div class="gauge-scale"><span>0 · machine-flat</span><span>0.85 · human-range</span><span>1.5+ · volatile</span></div>';
+}
+
+function animateGauge(pct) {
+  const marker = document.querySelector('.gauge .marker');
+  if (!marker) return;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    marker.style.left = pct + '%';
+  }));
+}
+
+function bars(items, titleFn, labels) {
+  if (!items.length) return '';
+  const max = Math.max(...items.map(i => i.count));
+  const html = '<div class="bars">' + items.map((i, idx) =>
+    '<div class="bar" style="height:' + Math.round(100 * i.count / max) + '%;animation-delay:' + (idx * 40) + 'ms">' +
+    '<span class="tip">' + esc(titleFn(i)) + '</span></div>'
+  ).join('') + '</div>';
+  return html + (labels ? '<div class="bars-labels">' + labels.map(esc).join('<span></span>') + '</div>' : '');
+}
+
+function renderStats(st) {
+  const cvCls = st.burst_label === 'human-range' ? 'good' : 'warn';
+  $('right').innerHTML =
+    '<div class="stats-grid">' +
+    statCard(st.words.toLocaleString(), 'words') +
+    statCard(st.sentences.toLocaleString(), 'sentences') +
+    statCard(st.avg_sentence_len, 'avg sentence len') +
+    statCard(st.burstiness.toFixed(2), 'burstiness cv', cvCls) +
+    statCard(st.long_sentences + ' / ' + st.short_sentences, 'long 35+ / short 1-6') +
+    statCard(st.adverb_per_1k, '-ly adverbs /1k') +
+    statCard(st.passive_per_1k, 'passive /1k') +
+    statCard(st.unique_ratio + '%', 'unique words') +
+    '</div>' +
+    '<div class="stat-block" style="animation-delay:.08s"><div class="lbl"><span>Burstiness gauge</span><b>' + st.burst_label + '</b></div>' + gauge(st.burstiness) + '</div>' +
+    '<div class="stat-block" style="animation-delay:.14s"><div class="lbl"><span>Sentence-length distribution</span></div>' +
+    bars(st.len_buckets, i => i.label + ' words · ' + i.count + ' sentences', ['1-4', '10-14', '20-29', '40+']) +
+    '</div>' +
+    '<div class="stat-block" style="animation-delay:.2s"><div class="lbl"><span>Sentence starts (top ' + st.top_starts.length + ')</span><b>top start: ' + st.start_repeat_pct + '% of sentences</b></div>' +
+    bars(st.top_starts, i => '"' + i.word + '" × ' + i.count) +
+    '</div>';
+  document.querySelectorAll('.stat').forEach((el, i) => el.style.animationDelay = (i * 55) + 'ms');
+  document.querySelectorAll('.stat .v').forEach(countUp);
+  animateGauge(Math.min(100, Math.round(100 * st.burstiness / 1.5)));
+}
+
+/* ═══════════════ flags (shared) ═══════════════ */
+function renderFlags(res) {
+  const cats = Object.keys(res.tells);
+  if (!cats.length) return;
+  const html = cats.map(cat => {
+    const items = res.tells[cat];
+    const err = items.filter(i => i.severity === 'error').length;
+    const warn = items.filter(i => i.severity === 'warn').length;
+    const info = items.length - err - warn;
+    const badges = (err ? '<span class="badge err">' + err + '</span>' : '') +
+      (warn ? '<span class="badge warn">' + warn + '</span>' : '') +
+      (info ? '<span class="badge info">' + info + '</span>' : '');
+    return '<details class="cat" open><summary>' +
+      '<span class="caret">▸</span><span class="name">' + esc(cat.replace(/_/g, ' ')) + '</span>' + badges +
+      '</summary><div class="items">' +
+      items.map((i, idx) =>
+        '<div class="tell ' + i.severity + '" data-line="' + i.line + '" role="button" tabindex="0" style="animation-delay:' + (idx * 40) + 'ms">' +
+        '<span class="callout">' + (idx + 1) + '</span>' +
+        '<div class="body">' +
+        '<div class="loc"><span class="name">' + esc(i.name) + '</span><span>L' + i.line + ' · ' + (i.fix || (i.fixable ? 'autofixable' : 'manual')) + '</span></div>' +
+        '<div class="snip">' + highlight(i.line_text || '', i.match) + '</div>' +
+        '</div></div>'
+      ).join('') + '</div></details>';
+  }).join('');
+  $('right').insertAdjacentHTML('beforeend',
+    '<div class="stat-block" style="margin-top:4px;animation-delay:.1s"><div class="lbl"><span>Marginalia</span><b>' + res.total + ' total · ' + res.fixable + ' safe-fixable</b></div>' + html + '</div>');
+
+  const jump = el => {
+    const line = parseInt(el.dataset.line, 10);
+    const lines = ta.value.split('\n');
+    let pos = 0;
+    for (let i = 0; i < line - 1 && i < lines.length; i++) pos += lines[i].length + 1;
+    ta.focus();
+    ta.setSelectionRange(pos, pos);
+    ta.scrollTop = (line - 1) * 27 - ta.clientHeight / 3;
+  };
+  document.querySelectorAll('.tell').forEach(el => {
+    el.addEventListener('click', () => jump(el));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jump(el); }
+    });
+  });
+}
+
+function renderSummary(chips) {
+  $('summary').hidden = false;
+  $('summary').innerHTML = chips;
+  document.querySelectorAll('#summary .chip').forEach((el, i) => el.style.animationDelay = (i * 45) + 'ms');
+}
+
+/* ═══════════════ diff ═══════════════ */
+function lcsDiff(aLines, bLines) {
+  const n = aLines.length, m = bLines.length;
+  const dp = Array.from({length: n + 1}, () => new Uint32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--)
+    for (let j = m - 1; j >= 0; j--)
+      dp[i][j] = aLines[i] === bLines[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const out = [];
+  let i = 0, j = 0, ai = 1, bi = 1;
+  while (i < n && j < m) {
+    if (aLines[i] === bLines[j]) { out.push({t: 'same', tx: aLines[i], ln: ai}); i++; j++; ai++; bi++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) { out.push({t: 'del', tx: aLines[i], ln: ai}); i++; ai++; }
+    else { out.push({t: 'add', tx: bLines[j], ln: bi}); j++; bi++; }
+  }
+  while (i < n) { out.push({t: 'del', tx: aLines[i], ln: ai}); i++; ai++; }
+  while (j < m) { out.push({t: 'add', tx: bLines[j], ln: bi}); j++; bi++; }
+  return out;
+}
+
+function renderDiff(before, after) {
+  const rows = lcsDiff(before.split('\n'), after.split('\n'));
+  const added = rows.filter(r => r.t === 'add').length;
+  const removed = rows.filter(r => r.t === 'del').length;
+  $('right').insertAdjacentHTML('beforeend',
+    '<div class="stat-block"><div class="lbl"><span>Diff</span><b>' + removed + ' removed · ' + added + ' added</b></div>' +
+    '<div class="diff">' + rows.map((r, idx) =>
+      '<div class="row ' + r.t + '" style="animation-delay:' + Math.min(idx * 15, 300) + 'ms">' +
+      '<span class="ln">' + r.ln + '</span><span class="tx">' + esc(r.tx || '') + '</span></div>'
+    ).join('') + '</div></div>');
+}
+
+/* ═══════════════ prose mode ═══════════════ */
+async function analyze() {
+  const text = ta.value.trim();
+  if (!text) return;
+  const btn = $('analyze');
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Analyzing…';
+  try {
+    const res = await fetch('/api/analyze', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text})
+    }).then(r => r.json());
+    current = res;
+    fixedText = null;
+    $('right').innerHTML = '';
+    renderStats(res.stats);
+    renderFlags(res);
+    renderSummary(
+      '<span class="chip err"><b>' + res.by_severity.error + '</b> errors</span>' +
+      '<span class="chip warn"><b>' + res.by_severity.warn + '</b> warnings</span>' +
+      '<span class="chip info"><b>' + res.by_severity.info + '</b> info</span>' +
+      '<span class="chip"><b>' + res.fixable + '</b> safe-fixable</span>' +
+      '<span class="chip"><b>' + res.tell_density + '</b> tells / 1k words</span>'
+    );
+    $('fix').disabled = false;
+    $('copy').disabled = true;
+    $('download').disabled = true;
+  } finally { btn.disabled = false; btn.innerHTML = label; }
+}
+
+async function fixAll() {
+  if (!current) return;
+  const btn = $('fix');
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Fixing…';
+  try {
+    const before = ta.value.trim();
+    const useProfile = $('use-profile') ? $('use-profile').checked : false;
+    const res = await fetch('/api/paraphrase', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text: before, mode: 'deep', scrub: true,
+        profile: useProfile ? 'shounak' : null})
+    }).then(r => r.json());
+    fixedText = res.text;
+    $('right').insertAdjacentHTML('afterbegin',
+      '<div class="disruption"><div class="big">' + res.disruption.token_pct + '%</div>' +
+      '<div class="txt"><b>' + res.applied + ' edits applied (deep rewrite: mechanical fixes + rewrite bank + WordNet synonym substitution + structure moves' + (useProfile ? ' + style-matched rhythm' : '') + ').</b> ' + res.disruption.tokens_changed + ' of ' +
+      res.disruption.tokens_total + ' tokens changed: every flagged tell replaced, then common words swapped for frequency-gated synonyms with inflection preserved, negation flips and adverb fronting. ' +
+      res.disruption.remaining_flags + ' flags remain — slang and story beats still read AI; rewrite those by hand for the deepest effect.' +
+      (res.scrub_iterations > 0 ? ' <b>Scrub mode ran ' + res.scrub_iterations + ' extra pass' + (res.scrub_iterations > 1 ? 'es' : '') + '</b> to push the watermark z-score under threshold.' : '') +
+      '</div></div>');
+    if (useProfile) {
+      try {
+        const hs = await fetch('/api/harness', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({text: res.text, profile: 'shounak'})
+        }).then(r => r.json());
+        const pd = hs.local.profile ? hs.local.profile.distance : 'n/a';
+        const ext = hs.external
+          ? ' | external: ' + Object.entries(hs.external).map(([k, v]) => k + ' ' + v).join(', ')
+          : ' | external: none logged yet (CLI: python -m deai.harness <file> --profile profiles/shounak.json --log zerogpt=0.7)';
+        $('right').insertAdjacentHTML('afterbegin',
+          '<div class="disruption"><div class="txt"><b>Style match:</b> profile distance ' + pd +
+          ' (0 = indistinguishable from your own prose) · local proxy AI-score ' + hs.local.ai_score + ext + '</div></div>');
+      } catch (e) { /* harness is best-effort */ }
+    }
+    $('right').insertAdjacentHTML('afterbegin', renderWatermark(res.watermark));
+    renderResult(res.text);
+    if (res.changes.length) renderRewriteLog(res.changes);
+    renderDiff(before, res.text);
+    $('right').scrollIntoView({behavior: 'smooth', block: 'start'});
+    $('copy').disabled = false;
+    $('download').disabled = false;
+  } finally { btn.disabled = false; btn.innerHTML = label; }
+}
+
+function renderResult(text) {
+  const block = document.createElement('div');
+  block.className = 'stat-block result-block';
+  block.style.animationDelay = '.05s';
+  block.innerHTML =
+    '<div class="lbl"><span>Rewritten result</span>' +
+    '<button id="load-result" type="button" class="mini">Load into editor</button></div>' +
+    '<div class="result-out" tabindex="0" aria-label="Rewritten text">' + esc(text) + '</div>';
+  $('right').insertAdjacentElement('afterbegin', block);
+  $('load-result').addEventListener('click', () => {
+    ta.value = text;
+    ta.dispatchEvent(new Event('input'));
+    toast('Rewritten text loaded into editor');
+    ta.focus();
+  });
+}
+
+function renderWatermark(wm) {
+  if (!wm || !wm.available || !wm.before || !wm.after) {
+    return '<div class="stat-block" style="animation-delay:.06s"><div class="lbl"><span>Watermark probe</span><b>unavailable</b></div>' +
+      '<div class="diff" style="max-height:none"><div class="row"><span class="ln">·</span>' +
+      '<span class="tx">Probe needs the GPT-2 tokenizer (tokenizers/transformers). First call downloads it from the HuggingFace hub; offline or missing deps keep this quiet.</span></div></div></div>';
+  }
+  const before = wm.before, after = wm.after;
+  const drop = after.z < before.z;
+  const clean = after.verdict === 'clean';
+  const cls = clean ? 'good' : (drop ? 'warn' : 'red');
+  const arrow = drop ? '↓' : (after.z > before.z ? '↑' : '→');
+  return '<div class="stat-block" style="animation-delay:.06s"><div class="lbl"><span>Watermark probe · KGW-MinHash</span><b class="' + cls + '">' +
+    (clean ? after.verdict : 'still flagged') + '</b></div>' +
+    '<div class="verdict ' + (clean ? 'good' : 'bad') + '" style="margin-bottom:0">' +
+    '<div class="big">' + before.z.toFixed(1) + ' → ' + after.z.toFixed(1) + '</div>' +
+    '<div class="txt">z-score ' + arrow + ' under key probe. Threshold: ' + after.threshold + '. ' +
+    (clean
+      ? '<b>No detectable green-list bias remains</b> — below the KGW detection threshold.'
+      : '<b>Green-list bias still above threshold</b> — scrub mode re-runs the rewrite up to 3× until it drops (see iterations below).') +
+    '</div></div></div>';
+}
+
+function renderRewriteLog(changes) {
+  const rows = changes.map((c, idx) =>
+    '<div class="rw" style="animation-delay:' + Math.min(idx * 25, 400) + 'ms">' +
+    '<span class="rw-name">' + esc(c.name) + '</span>' +
+    '<span class="rw-del">' + esc(c.before) + '</span>' +
+    '<span class="rw-arrow">→</span>' +
+    '<span class="rw-add">' + esc(c.after) + '</span></div>'
+  ).join('');
+  $('right').insertAdjacentHTML('beforeend',
+    '<div class="stat-block" style="animation-delay:.1s"><div class="lbl"><span>Rewrite log</span><b>' + changes.length + ' rewrites</b></div>' +
+    '<div class="rws">' + rows + '</div></div>');
+}
+
+/* ═══════════════ code mode — MessageRenderer port ═══════════════ */
+
+const MACROS = {
+  '\\R': '\\mathbb{R}', '\\C': '\\mathbb{C}', '\\N': '\\mathbb{N}', '\\Z': '\\mathbb{Z}',
+  '\\Q': '\\mathbb{Q}', '\\F': '\\mathbb{F}', '\\E': '\\mathbb{E}',
+  '\\eps': '\\varepsilon', '\\vphi': '\\varphi',
+  '\\tr': '\\operatorname{tr}', '\\rank': '\\operatorname{rank}', '\\diag': '\\operatorname{diag}',
+  '\\argmin': '\\operatorname{argmin}', '\\argmax': '\\operatorname{argmax}',
+  '\\grad': '\\nabla', '\\im': '\\operatorname{Im}', '\\re': '\\operatorname{Re}',
+  '\\abs': '\\lvert#1\\rvert', '\\norm': '\\lVert#1\\rVert',
+  '\\ceil': '\\lceil#1\\rceil', '\\floor': '\\lfloor#1\\rfloor',
+  '\\set': '\\{\\,#1\\,\\}', '\\bkt': '\\left[#1\\right]', '\\paren': '\\left(#1\\right)'
+};
+
+const UNICODE_TABLE = [
+  ['∮', '\\oint'], ['∬', '\\iint'], ['∭', '\\iiint'], ['⨌', '\\iiiint'],
+  ['∑', '\\sum'], ['∏', '\\prod'], ['∐', '\\coprod'],
+  ['√', '\\sqrt'], ['∞', '\\infty'], ['∇', '\\nabla'], ['∂', '\\partial'],
+  ['ℂ', '\\mathbb{C}'], ['ℕ', '\\mathbb{N}'], ['ℝ', '\\mathbb{R}'], ['ℚ', '\\mathbb{Q}'], ['ℤ', '\\mathbb{Z}'], ['ℍ', '\\mathbb{H}'],
+  ['ℵ', '\\aleph'],
+  ['→', '\\to'], ['←', '\\leftarrow'], ['↔', '\\leftrightarrow'],
+  ['⇒', '\\Rightarrow'], ['⇐', '\\Leftarrow'], ['⇔', '\\Leftrightarrow'],
+  ['∈', '\\in'], ['∋', '\\ni'], ['∉', '\\notin'],
+  ['⊂', '\\subset'], ['⊃', '\\supset'], ['⊆', '\\subseteq'], ['⊇', '\\supseteq'],
+  ['≤', '\\le'], ['≥', '\\ge'], ['≠', '\\ne'], ['≈', '\\approx'], ['≡', '\\equiv'], ['≅', '\\cong'], ['∼', '\\sim'],
+  ['×', '\\times'], ['÷', '\\div'], ['±', '\\pm'], ['∓', '\\mp'], ['⋅', '\\cdot'],
+  ['∧', '\\wedge'], ['∨', '\\vee'], ['∀', '\\forall'], ['∃', '\\exists'], ['¬', '\\neg'],
+  ['⟨', '\\langle '], ['⟩', '\\rangle '], ['∥', '\\parallel'], ['⊥', '\\perp'],
+  ['α', '\\alpha'], ['β', '\\beta'], ['γ', '\\gamma'], ['δ', '\\delta'], ['ε', '\\epsilon'],
+  ['θ', '\\theta'], ['λ', '\\lambda'], ['μ', '\\mu'], ['π', '\\pi'], ['ρ', '\\rho'],
+  ['σ', '\\sigma'], ['τ', '\\tau'], ['φ', '\\phi'], ['ϕ', '\\varphi'], ['χ', '\\chi'], ['ψ', '\\psi'], ['ω', '\\omega'],
+  ['Γ', '\\Gamma'], ['Δ', '\\Delta'], ['Θ', '\\Theta'], ['Λ', '\\Lambda'], ['Σ', '\\Sigma'],
+  ['Φ', '\\Phi'], ['Ψ', '\\Psi'], ['Ω', '\\Omega'],
+  ['…', '\\ldots'], ['⋯', '\\cdots'], ['⋮', '\\vdots'],
+  ['⁰', '^{0}'], ['¹', '^{1}'], ['²', '^{2}'], ['³', '^{3}'], ['⁴', '^{4}'], ['⁵', '^{5}'], ['⁶', '^{6}'], ['⁷', '^{7}'], ['⁸', '^{8}'], ['⁹', '^{9}'],
+  ['₀', '_{0}'], ['₁', '_{1}'], ['₂', '_{2}'], ['₃', '_{3}'], ['₄', '_{4}'], ['₅', '_{5}'], ['₆', '_{6}'], ['₇', '_{7}'], ['₈', '_{8}'], ['₉', '_{9}']
+];
+
+function mapUnicode(s) {
+  s = s.replace(/[\u{1D400}-\u{1D419}]/gu, ch => '\\mathbf{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D400 + 0x41) + '}');
+  s = s.replace(/[\u{1D41A}-\u{1D433}]/gu, ch => '\\mathbf{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D41A + 0x61) + '}');
+  s = s.replace(/[\u{1D434}-\u{1D44D}]/gu, ch => '\\mathit{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D434 + 0x41) + '}');
+  s = s.replace(/[\u{1D44E}-\u{1D467}]/gu, ch => '\\mathit{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D44E + 0x61) + '}');
+  s = s.replace(/[\u{1D49C}-\u{1D4B5}]/gu, ch => '\\mathcal{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D49C + 0x41) + '}');
+  s = s.replace(/[\u{1D4B6}-\u{1D4CF}]/gu, ch => '\\mathcal{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D4B6 + 0x61) + '}');
+  s = s.replace(/[\u{1D538}-\u{1D551}]/gu, ch => '\\mathbb{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D538 + 0x41) + '}');
+  s = s.replace(/[\u{1D552}-\u{1D56B}]/gu, ch => '\\mathbb{' + String.fromCodePoint(ch.codePointAt(0) - 0x1D552 + 0x61) + '}');
+  for (const [uni, tex] of UNICODE_TABLE) {
+    if (s.indexOf(uni) !== -1) s = s.split(uni).join(tex);
+  }
+  return s;
+}
+
+function balanceBraces(s) {
+  let depth = 0;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (c === '\\') { i++; continue; }
+    if (c === '{') depth++;
+    else if (c === '}') {
+      if (depth === 0) { s = s.slice(0, i) + s.slice(i + 1); i--; }
+      else depth--;
+    }
+  }
+  if (depth > 0) s += '}'.repeat(depth);
+  return s;
+}
+
+function repairLatex(formula) {
+  if (!formula) return '';
+  let s = formula;
+  s = s
+    .replace(/\\(big|Big|bigg|Bigg)\{/g, '\\$1l\\{')
+    .replace(/\\(big|Big|bigg|Bigg)\}/g, '\\$1r\\}');
+  s = s.replace(/\\(int|oint|iint|iiint|iiiint|sum|prod|coprod|bigotimes|bigoplus|bigcup|bigcap|bigsqcup|bigvee|bigwedge)\s*\{/g, '\\$1_{');
+  s = s
+    .replace(/\\text\s*\{\s*(lim|min|max|sup|inf|arg|sin|cos|tan|log|ln|exp|det|deg|gcd|Pr|dim|ker)\s*\}/g, '\\$1');
+  const textBlocks = [];
+  s = s.replace(/(\\text\{[^}]*\})/g, m => {
+    const idx = textBlocks.length;
+    textBlocks.push(m);
+    return '\x00T' + idx + '\x00';
+  });
+  s = mapUnicode(s);
+  s = s.replace(/\x00T(\d+)\x00/g, (_, idx) => textBlocks[+idx] || '');
+  s = s.replace(/(?<!\\)#/g, '\\#');
+  const l = (s.match(/\\left\b/g) || []).length;
+  const r = (s.match(/\\right\b/g) || []).length;
+  if (l > r) s += ' \\right.'.repeat(l - r);
+  else if (r > l) s = '\\left. '.repeat(r - l) + s;
+  s = s.replace(/\\tag\s*\{[^}]*\}/g, '').replace(/\\label\s*\{[^}]*\}/g, '');
+  s = s.replace(/\\\\\[\d+(?:\.\d+)?\s*(?:pt|ex|em|mm|cm|in|pc|mu)\]/g, '\\\\');
+  s = s.replace(/\\intertext\s*\{([^}]*)\}/g, '\\text{$1}\\\\');
+  s = s.replace(/\\multicolumn\s*\{[^}]*\}\s*\{[^}]*\}\s*\{([^}]*)\}/g, '{$1}');
+  s = balanceBraces(s);
+  return s.trim();
+}
+
+/* ── fixMalformedTags with repair counting ── */
+const TAG_FIXES = [
+  [/(?<![A-Za-z</])CHART>/gi, '<CHART>', 'opening <CHART> missing "<"'],
+  [/(?<![A-Za-z</])MERMAID>/gi, '<MERMAID>', 'opening <MERMAID> missing "<"'],
+  [/(?<![A-Za-z</])LIVE>/gi, '<LIVE>', 'opening <LIVE> missing "<"'],
+  [/(?<![A-Za-z</])THOUGHT>/gi, '<THOUGHT>', 'opening <THOUGHT> missing "<"'],
+  [/(?<![A-Za-z</])THINK>/gi, '<THINK>', 'opening <THINK> missing "<"'],
+  [/(?<![A-Za-z</])ANSWER>/gi, '<ANSWER>', 'opening <ANSWER> missing "<"'],
+  [/(?<![A-Za-z</])FOLLOW_UPS>/gi, '<FOLLOW_UPS>', 'opening <FOLLOW_UPS> missing "<"'],
+  [/(?<![A-Za-z</])ART>/gi, '<CHART>', '"ART>" — leading "<C" dropped'],
+  [/(?<![A-Za-z</])HART>/gi, '<CHART>', '"HART>" — leading "<C" dropped'],
+  [/(?<![A-Za-z</])ERMAID>/gi, '<MERMAID>', '"ERMAID>" — leading "<M" dropped'],
+  [/(?<![A-Za-z</])HOUGHT>/gi, '<THOUGHT>', '"HOUGHT>" — leading "<T" dropped'],
+  [/(?<![A-Za-z</])HINK>/gi, '<THINK>', '"HINK>" — leading "<T" dropped'],
+  [/(?<![A-Za-z</])OLLOW_UPS>/gi, '<FOLLOW_UPS>', '"OLLOW_UPS>" — leading "<F" dropped'],
+  [/(?<!<)\/(CHART|MERMAID|LIVE|THOUGHT|THINK|FOLLOW_UPS|ANSWER)>/gi, '</$1>', 'closing tag missing "<"'],
+  [/<\s*\/\s*<\s*(CHART|MERMAID|LIVE|THOUGHT|THINK|FOLLOW_UPS|ANSWER|SOURCES)>/gi, '</$1>', 'closing tag has extra "<"']
+];
+
+function fixMalformedTagsC(text) {
+  let s = text;
+  const repairs = [];
+  for (const [re, rep, label] of TAG_FIXES) {
+    s = s.replace(re, (m, p1, offset) => {
+      repairs.push({label, line: lineOf(text, offset), match: m});
+      return p1 === undefined ? rep : rep.replace('$1', p1);
+    });
+  }
+  return {text: s, repairs};
+}
+
+/* ── markdown render ── */
+const LANG_ALIAS = {
+  js: 'javascript', ts: 'typescript', py: 'python', sh: 'bash', shell: 'bash',
+  yml: 'yaml', html: 'markup', xml: 'markup', txt: 'plain', text: 'plain'
+};
+
+function codeBlockHtml(lang, code, issues, line) {
+  const l = LANG_ALIAS[String(lang).toLowerCase()] || String(lang).toLowerCase() || 'plain';
+  let inner;
+  try {
+    const grammar = (window.Prism && Prism.languages[l]) || (window.Prism && Prism.languages.plain) || {};
+    inner = window.Prism ? Prism.highlight(code, grammar, l) : esc(code);
+  } catch (e) { inner = esc(code); }
+  return '<div class="code-block"><div class="cb-head">' +
+    '<span class="cb-lang">' + esc(lang || 'text') + '</span>' +
+    '<span class="cb-copy" role="button" tabindex="0" aria-label="Copy code block">copy</span></div>' +
+    '<pre class="cb-body"><code class="language-' + esc(l) + '">' + inner + '</code></pre></div>';
+}
+
+function detectLatexIssues(f, line, issues) {
+  const m1 = f.match(/\\(int|sum|prod|oint|iint|iiint|coprod)\s*\{/);
+  if (m1) issues.push({name: 'LaTeX hallucination: \\' + m1[1] + '{x} → \\' + m1[1] + '_{x}', severity: 'warn', line, line_text: f, match: '\\' + m1[1] + '{', fix: 'renderer repaired'});
+  if (/\\[Bb]ig[g]?\{/.test(f)) issues.push({name: '\\big{ → \\bigl{ (renderer repaired)', severity: 'warn', line, line_text: f, match: '\\big{', fix: 'renderer repaired'});
+  const m3 = f.match(/\\text\s*\{\s*(lim|min|max|sup|inf|Pr|det|dim|ker)\s*\}/);
+  if (m3) issues.push({name: '\\text{' + m3[1] + '} → \\' + m3[1] + ' (renderer repaired)', severity: 'info', line, line_text: f, match: '\\text{' + m3[1] + '}', fix: 'renderer repaired'});
+  const l = (f.match(/\\left\b/g) || []).length;
+  const r = (f.match(/\\right\b/g) || []).length;
+  if (l !== r) issues.push({name: 'Unbalanced \\left / \\right (renderer balanced)', severity: 'warn', line, line_text: f, match: '\\left', fix: 'renderer repaired'});
+}
+
+function mathBlockHtml(formula, line, issues) {
+  const clean = formula.trim().replace(/^\$\$/, '').replace(/\$\$$/, '').trim();
+  detectLatexIssues(clean, line, issues);
+  if (!window.katex) {
+    issues.push({name: 'KaTeX not loaded: kept as raw source', severity: 'warn', line, line_text: formula, match: clean.slice(0, 24), fix: 'manual'});
+    return '<div class="latex-raw"><span class="lbl">LaTeX</span><pre>' + esc(clean) + '</pre></div>';
+  }
+  try {
+    if (/[<>]/.test(clean) || (/\n/.test(clean) && !/^\\begin/.test(clean.trim()))) throw new Error('junk');
+    const repaired = repairLatex(clean);
+    const html = katex.renderToString(repaired, {
+      displayMode: true, throwOnError: false, strict: 'ignore', trust: true, macros: MACROS
+    });
+    if (/katex-error/.test(html)) throw new Error('parse');
+    return '<div class="math-block">' + html + '</div>';
+  } catch (e) {
+    issues.push({name: 'LaTeX failed to render: kept as raw source', severity: 'warn', line, line_text: formula, match: clean.slice(0, 24), fix: 'manual'});
+    return '<div class="latex-raw"><span class="lbl">LaTeX</span><pre>' + esc(clean) + '</pre></div>';
+  }
+}
+
+function parseInline(text, line, issues) {
+  const INLINE_RE = /(`[^`]+`|\*\*[^*\n]+\*\*|\*[^*\n]+\*|__[^*\n]+__|\$[^$\n]+\$|https?:\/\/[^\s]+)/g;
+  const parts = [];
+  let lastIdx = 0, m;
+  const re = new RegExp(INLINE_RE.source, INLINE_RE.flags);
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > lastIdx) parts.push({t: 'text', v: text.slice(lastIdx, m.index)});
+    parts.push({t: 'delim', v: m[0]});
+    lastIdx = m.index + m[0].length;
+  }
+  if (lastIdx < text.length) parts.push({t: 'text', v: text.slice(lastIdx)});
+  return parts.map(p => {
+    const v = p.v;
+    if (p.t === 'text') return esc(v);
+    if (v.startsWith('`')) return '<code>' + esc(v.slice(1, -1)) + '</code>';
+    if (v.startsWith('**') || v.startsWith('__')) return '<strong>' + esc(v.slice(2, -2)) + '</strong>';
+    if (v.startsWith('*') || v.startsWith('_')) return '<em>' + esc(v.slice(1, -1)) + '</em>';
+    if (v.startsWith('http')) return '<a href="' + esc(v) + '" target="_blank" rel="noopener">' + esc(v) + '</a>';
+    if (v.startsWith('$') && !/^\$\d/.test(v)) {
+      const inner = v.slice(1, -1);
+      if (!window.katex) return '<code>' + esc(inner) + '</code>';
+      detectLatexIssues(inner, line, issues);
+      try {
+        const repaired = repairLatex(inner);
+        const html = katex.renderToString(repaired, {
+          displayMode: false, throwOnError: false, strict: 'ignore', trust: true, macros: MACROS
+        });
+        if (/katex-error/.test(html)) throw new Error('parse');
+        return html;
+      } catch (e) {
+        issues.push({name: 'Inline math failed to render: shown raw', severity: 'info', line, line_text: text, match: inner.slice(0, 24), fix: 'manual'});
+        return '<code>' + esc(inner) + '</code>';
+      }
+    }
+    return esc(v);
+  }).join('');
+}
+
+function buildList(items, issues) {
+  const out = [];
+  let k = 0;
+  const base = items.length ? items[0].level : 0;
+  while (k < items.length) {
+    const it = items[k];
+    if (it.level < base) break;
+    const tag = it.ordered ? 'ol' : 'ul';
+    let li = '<' + tag + '>';
+    while (k < items.length && items[k].level === it.level && items[k].ordered === it.ordered) {
+      const g = items[k];
+      const children = [];
+      k++;
+      while (k < items.length && items[k].level > g.level) { children.push(items[k]); k++; }
+      li += '<li>' + parseInline(g.text, g.line, issues) + (children.length ? buildList(children, issues) : '') + '</li>';
+    }
+    li += '</' + tag + '>';
+    out.push(li);
+  }
+  return out.join('');
+}
+
+function renderMarkdown(text, issues) {
+  const lines = text.split('\n');
+  const out = [];
+  const addIssue = (name, severity, line, match, fix) => issues.push({name, severity, line, line_text: lines[(line || 1) - 1] || '', match, fix});
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    const t = line.trim();
+    if (!t) { i++; continue; }
+
+    /* code fence */
+    const fm = t.match(/^```([a-z0-9-]*)\s*$/i);
+    if (fm) {
+      const lang = fm[1];
+      const start = i;
+      const buf = [];
+      i++;
+      while (i < lines.length && !/^```\s*$/.test(lines[i].trim())) { buf.push(lines[i]); i++; }
+      if (i >= lines.length) {
+        addIssue('Unclosed code fence: everything after is swallowed', 'error', start + 1, '```', 'manual');
+      } else {
+        i++;
+      }
+      out.push(codeBlockHtml(lang, buf.join('\n'), issues, start + 1));
+      continue;
+    }
+
+    /* display math */
+    if (/^\$\$/.test(t)) {
+      const start = i;
+      const buf = [];
+      i++;
+      while (i < lines.length && !lines[i].includes('$$')) { buf.push(lines[i]); i++; }
+      if (i >= lines.length) {
+        addIssue('Unclosed display math $$: renderer stopped at end of input', 'error', start + 1, '$$', 'manual');
+      } else {
+        i++;
+      }
+      out.push(mathBlockHtml(buf.join('\n'), start + 1, issues));
+      continue;
+    }
+
+    /* special blocks */
+    const bm = t.match(/^<([A-Za-z]+)>$/i);
+    if (bm) {
+      const tag = bm[1].toUpperCase();
+      const start = i;
+      const buf = [];
+      i++;
+      const closeRe = new RegExp('^</' + bm[1] + '>$', 'i');
+      while (i < lines.length && !closeRe.test(lines[i].trim())) { buf.push(lines[i]); i++; }
+      const closed = i < lines.length;
+      if (closed) i++;
+      if (!closed) addIssue('Unclosed <' + tag + '> block', 'error', start + 1, '<' + tag + '>', 'manual');
+      const content = buf.join('\n');
+      if (tag === 'CHART') {
+        const clean = content.replace(/\/\/[^\n]*/g, '').replace(/\/\*[\s\S]*?\*\//g, '').trim();
+        try {
+          const data = JSON.parse(clean);
+          if (data && typeof data === 'object') {
+            out.push('<div class="code-block"><div class="cb-head"><span class="cb-lang">CHART · parsed OK</span></div><pre class="cb-body">' + esc(JSON.stringify(data, null, 2)) + '</pre></div>');
+          } else {
+            throw new Error('not object');
+          }
+        } catch (e) {
+          addIssue('Invalid JSON in <CHART>: renderer caught it', 'error', start + 1, '<CHART>', 'manual');
+          out.push('<div class="code-block"><div class="cb-head"><span class="cb-lang">CHART · broken JSON</span></div><pre class="cb-body">' + esc(content) + '</pre></div>');
+        }
+      } else {
+        addIssue('<' + tag + '> block not bundled here: shown as source', 'info', start + 1, '<' + tag + '>', 'manual');
+        out.push('<div class="code-block"><div class="cb-head"><span class="cb-lang">' + esc(tag) + '</span></div><pre class="cb-body">' + esc(content) + '</pre></div>');
+      }
+      continue;
+    }
+
+    /* heading */
+    const hm = t.match(/^(#{1,6})\s+(.+)$/);
+    if (hm) {
+      const n = hm[1].length;
+      out.push('<h' + n + '>' + parseInline(hm[2], i + 1, issues) + '</h' + n + '>');
+      i++;
+      continue;
+    }
+    if (/^#{1,6}\S/.test(t)) {
+      addIssue('Heading missing space after #: renderer inserted it', 'info', i + 1, t.match(/^#+/)[0], 'renderer fixed it');
+      const n = t.match(/^#+/)[0].length;
+      out.push('<h' + n + '>' + parseInline(t.replace(/^#+/, ''), i + 1, issues) + '</h' + n + '>');
+      i++;
+      continue;
+    }
+
+    /* hr */
+    if (/^(-{3,}|\*{3,}|_{3,})$/.test(t)) { out.push('<hr>'); i++; continue; }
+
+    /* table */
+    if (t.startsWith('|')) {
+      const rows = [];
+      let j = i;
+      while (j < lines.length && lines[j].trim().startsWith('|') && lines[j].trim().endsWith('|')) {
+        const cells = lines[j].trim().slice(1, -1).split('|').map(c => c.trim());
+        const isSep = cells.every(c => /^:?-{1,}:?$/.test(c));
+        if (!isSep) rows.push({cells, line: j + 1});
+        else if (!rows.some(r => r.sep)) { /* remember separator presence implicitly */ }
+        j++;
+      }
+      if (rows.length) {
+        const width = Math.max(...rows.map(r => r.cells.length));
+        let html = '<div class="tbl"><table><thead><tr>';
+        rows[0].cells.forEach(c => { html += '<th>' + parseInline(c, rows[0].line, issues) + '</th>'; });
+        html += '</tr></thead><tbody>';
+        for (let r = 1; r < rows.length; r++) {
+          if (rows[r].cells.length !== width) {
+            addIssue('Table row has ' + rows[r].cells.length + ' cells, expected ' + width + ': columns misaligned', 'warn', rows[r].line, '|', 'manual');
+          }
+          html += '<tr>' + rows[r].cells.map(c => '<td>' + parseInline(c, rows[r].line, issues) + '</td>').join('') + '</tr>';
+        }
+        html += '</tbody></table></div>';
+        out.push(html);
+      } else {
+        out.push('<p>' + esc(t) + '</p>');
+      }
+      i = j;
+      continue;
+    }
+
+    /* list */
+    if (/^(\s*)([-*•]|\d+\.)\s+/.test(line)) {
+      const items = [];
+      let j = i;
+      while (j < lines.length) {
+        const l = lines[j];
+        const lt = l.trim();
+        if (!lt) break;
+        const lm = lt.match(/^([-*•]|\d+\.)\s+(.+)$/);
+        if (!lm) break;
+        items.push({level: l.match(/^\s*/)[0].length, ordered: /^\d/.test(lm[1]), text: lm[2], line: j + 1});
+        j++;
+      }
+      out.push(buildList(items, issues));
+      i = j;
+      continue;
+    }
+
+    /* blockquote */
+    if (/^\s*>\s?/.test(line)) {
+      const buf = [];
+      while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+        buf.push(lines[i].replace(/^\s*>\s?/, ''));
+        i++;
+      }
+      out.push('<blockquote>' + buf.map(b => parseInline(b, i, issues)).join('<br>') + '</blockquote>');
+      continue;
+    }
+
+    /* paragraph */
+    const buf = [line];
+    i++;
+    while (i < lines.length && lines[i].trim() &&
+      !/^(#{1,6}|\s*([-*•]|\d+\.)\s+|```|\$\$|<[A-Za-z]+>|\s*>\s?)/.test(lines[i]) &&
+      !lines[i].trim().startsWith('|') &&
+      !/^(-{3,}|\*{3,}|_{3,})$/.test(lines[i].trim())) {
+      buf.push(lines[i]);
+      i++;
+    }
+    out.push('<p>' + buf.map(b => parseInline(b, i, issues)).join('<br>') + '</p>');
+  }
+  return '<div class="markdown-body">' + out.join('') + '</div>';
+}
+
+/* ── code mode main ── */
+function renderCode() {
+  const text = ta.value.trim();
+  if (!text) return;
+  const btn = $('analyze');
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = 'Rendering…';
+  try {
+    const issues = [];
+    const {text: fixed, repairs} = fixMalformedTagsC(text);
+    CODE_REPAIRS = repairs.length;
+    const previewHtml = renderMarkdown(fixed, issues);
+
+    const cats = {};
+    for (const iss of issues) {
+      const cat = iss.name.includes('\\') && /\\int|\\sum|\\big|\\left|\\text/.test(iss.name) ? 'latex hallucination'
+        : iss.name.includes('Heading') || iss.name.includes('Table') || iss.name.includes('Inline math') ? 'markdown mistakes'
+        : 'renderer catches';
+      (cats[cat] = cats[cat] || []).push(iss);
+    }
+
+    const total = issues.length;
+    const err = issues.filter(i => i.severity === 'error').length;
+    const warn = issues.filter(i => i.severity === 'warn').length;
+    const info = total - err - warn;
+
+    const verdict = total === 0
+      ? '<div class="verdict good"><div class="big">✓</div><div class="txt"><b>Rendered clean.</b> No malformed tags, no broken fences, no math or table mistakes: everything drew exactly as written.</div></div>'
+      : '<div class="verdict bad"><div class="big">' + total + '</div><div class="txt"><b>Renderer caught ' + total + ' mistakes</b> (' + err + ' blocking). Every flag below is a thing AI-generated output commonly gets wrong: the renderer repaired what it could and showed the rest raw.</div></div>';
+
+    $('right').innerHTML = verdict;
+    renderFlags({tells: cats, total, fixable: repairs.length});
+    $('right').insertAdjacentHTML('beforeend',
+      '<div class="stat-block" style="animation-delay:.15s"><div class="lbl"><span>Rendered preview</span><b>as a chat app would draw it</b></div>' + previewHtml + '</div>');
+
+    renderSummary(
+      '<span class="chip err"><b>' + err + '</b> errors</span>' +
+      '<span class="chip warn"><b>' + warn + '</b> warnings</span>' +
+      '<span class="chip info"><b>' + info + '</b> info</span>' +
+      '<span class="chip"><b>' + repairs.length + '</b> tag repairs</span>' +
+      '<span class="chip"><b>' + text.split('\n').length + '</b> lines</span>'
+    );
+
+    $('fix').disabled = repairs.length === 0;
+    $('copy').disabled = true;
+    $('download').disabled = true;
+    current = {code: true, repairs};
+    bindCodeCopies();
+  } finally { btn.disabled = false; btn.innerHTML = label; }
+}
+
+function bindCodeCopies() {
+  document.querySelectorAll('.cb-copy').forEach(el => {
+    el.addEventListener('click', async () => {
+      const pre = el.closest('.code-block').querySelector('.cb-body');
+      await navigator.clipboard.writeText(pre.textContent);
+      toast('Code block copied');
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); el.click(); }
+    });
+  });
+}
+
+function fixCode() {
+  const text = ta.value.trim();
+  if (!text) return;
+  const btn = $('fix');
+  btn.disabled = true;
+  const before = text;
+  const {text: fixed, repairs} = fixMalformedTagsC(before);
+  fixedText = fixed;
+  $('right').insertAdjacentHTML('afterbegin',
+    '<div class="disruption"><div class="big">' + repairs.length + '</div>' +
+    '<div class="txt"><b>' + repairs.length + ' malformed tags repaired.</b> Structural tag damage was auto-repaired; fences, math and JSON were left untouched so you decide manually.</div></div>');
+  renderDiff(before, fixed);
+  $('right').scrollIntoView({behavior: 'smooth', block: 'start'});
+  $('copy').disabled = false;
+  $('download').disabled = false;
+  btn.disabled = false;
+}
+
+/* ═══════════════ wiring ═══════════════ */
+$('analyze').addEventListener('click', () => mode === 'code' ? renderCode() : analyze());
+$('fix').addEventListener('click', () => mode === 'code' ? fixCode() : fixAll());
+$('copy').addEventListener('click', async () => {
+  if (fixedText) { await navigator.clipboard.writeText(fixedText); toast('Copied ' + (mode === 'code' ? 'repaired source' : 'fixed text')); }
+});
+$('download').addEventListener('click', () => {
+  if (!fixedText) return;
+  const blob = new Blob([fixedText], {type: 'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = mode === 'code' ? 'de-ai-repaired.txt' : 'de-ai-fixed.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+$('clear').addEventListener('click', resetAll);
+$('sample-ai').addEventListener('click', () => {
+  ta.value = mode === 'code' ? SAMPLE_AI_CODE : SAMPLE_AI;
+  ta.dispatchEvent(new Event('input'));
+});
+$('sample-human').addEventListener('click', () => {
+  ta.value = mode === 'code' ? SAMPLE_HUMAN_CODE : SAMPLE_HUMAN;
+  ta.dispatchEvent(new Event('input'));
+});
+
+ta.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    mode === 'code' ? renderCode() : analyze();
+  }
+});
+
+$('right').innerHTML = '<div class="empty"><div class="big">✎</div><p>Paste text and press <b>Analyze</b> — or load a sample to see what AI-flavored text looks like under the red pencil.</p></div>';
+</script>
+</body>
+</html>
