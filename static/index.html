@@ -984,7 +984,7 @@ function renderWatermark(wm) {
   if (!wm || !wm.available || !wm.before || !wm.after) {
     return '<div class="stat-block" style="animation-delay:.06s"><div class="lbl"><span>Watermark probe</span><b>unavailable</b></div>' +
       '<div class="diff" style="max-height:none"><div class="row"><span class="ln">·</span>' +
-      '<span class="tx">Probe needs the GPT-2 tokenizer (tokenizers/transformers). First call downloads it from the HuggingFace hub; offline or missing deps keep this quiet.</span></div></div></div>';
+      '<span class="tx">Probe needs the GPT-2 tokenizer (tiktoken, else tokenizers/transformers). First call fetches the vocab once, then it runs offline.</span></div></div></div>';
   }
   const before = wm.before, after = wm.after;
   const drop = after.z < before.z;

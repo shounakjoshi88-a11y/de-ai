@@ -47,6 +47,19 @@ _DEFAULT_KEYS = (
 
 
 def _load_tokenizer():
+    """Load a GPT-2 BPE tokenizer, preferring the lightest available backend.
+
+    Order: tiktoken (installed, fast, no torch) > tokenizers > transformers.
+    All three fetch the GPT-2 vocab on first use and cache it locally, so a
+    second call is offline. If none is importable, returns None and
+    ``probe()`` degrades gracefully.
+    """
+    try:
+        import tiktoken
+
+        return _TikTokenAdapter(tiktoken.get_encoding("gpt2"))
+    except Exception:
+        pass
     try:
         from tokenizers import Tokenizer
 
@@ -66,6 +79,50 @@ def _load_tokenizer():
     return None
 
 
+class _TikTokenAdapter:
+    """Minimal uniform interface over tiktoken's Encoding for this probe.
+
+    Mirrors the ``tokenizers`` interface used by the rest of ``probe()``:
+    ``encode() -> Encoding``-like (with ``.ids``), ``get_vocab() -> {token: id}``.
+    """
+
+    def __init__(self, enc):
+        self._enc = enc
+        self._vocab: dict[str, int] | None = None
+
+    def encode(self, text: str) -> _Ids:
+        return _Ids(self._enc.encode(text))
+
+    def decode(self, ids: list[int]) -> str:
+        return self._enc.decode(ids)
+
+    def get_vocab(self) -> dict[str, int]:
+        if self._vocab is None:
+            # surrogateescape (not "replace"): byte-tokens are arbitrary
+            # bytes; "replace" collapses many ids onto U+FFFD and breaks the
+            # id->token inversion. These strings are only hash inputs for the
+            # green-list test, so any injective encoding is fine.
+            self._vocab = {
+                self._enc.decode_single_token_bytes(i).decode(
+                    "utf-8", errors="surrogateescape"
+                ): i
+                for i in range(self._enc.n_vocab)
+            }
+        return self._vocab
+
+    def get_vocab_size(self) -> int:
+        return self._enc.n_vocab
+
+
+class _Ids:
+    """Minimal stand-in for the ``ids`` attribute of a tokenizers Encoding."""
+
+    __slots__ = ("ids",)
+
+    def __init__(self, ids: list[int]):
+        self.ids = ids
+
+
 _tokenizer = None
 
 
@@ -78,7 +135,7 @@ def _get_tokenizer():
 
 def _is_green(key: str, prev_token: str, token_id: int) -> bool:
     h = hashlib.sha256(
-        f"{key}|{prev_token}|{token_id}".encode("utf-8")
+        f"{key}|{prev_token}|{token_id}".encode("utf-8", errors="surrogateescape")
     ).digest()
     # first 4 bytes as uint32, little-endian
     value = int.from_bytes(h[:4], "little")

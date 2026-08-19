@@ -26,9 +26,14 @@ de-ai takes the opposite approach: **zero model calls**, fully deterministic out
 - **Deep rewrite passes** — lexical, clausal, triad, syntactic, burstiness (CV-gated sentence splitting), and humanization passes that run in a fixed order with a final **verification step** that reverts any swap that introduced a new tell.
 - **Technical-vocabulary guard** — a curated blocklist (`_TECH_TERMS`, 600+ ML/AI/security/CS terms) that the lexical pass may never touch, plus ambiguity traps for words like `entire`, `model`, `document`, `adjust`, `predict` whose noun-sense synonyms would wreck meaning.
 - **Profile targeting** — build a writing profile from a corpus; burstiness splitting and rhythm follow that profile instead of a fixed default.
-- **Watermark probe** — estimates the A/B watermark z-score of text (optional; needs a GPT-2 tokenizer), and verifies a rewrite doesn't introduce a detectable watermark.
+- **Watermark probe** — estimates the KGW-MinHash green-list z-score of text (tiktoken GPT-2 BPE, offline after a one-time vocab fetch), and verifies a rewrite doesn't introduce a detectable watermark.
+- **Layer A (invisible Unicode)** — inspects/cleans homoglyphs, ZWJ/ZWSP/ZWNJ, Bidi control chars, emoji glue, tag escapes (port of watermarks-remover's text Unicode pipeline).
+- **Stylometry** — burstiness (CV), MATTR lexical diversity, AI-ngram density, 24 AI-phrase markers, confidence-graded score with length calibration.
+- **Text-watermark detectors** — built-in KGW-MinHash probe (offline, tiktoken GPT-2 BPE), MarkLLM research harness (KGW/SynthID/EXP/Unigram/SIR schemes via `MARKLLM_DIR`, same-config-only detection), and a Claude text-watermark placeholder behind one fail-soft protocol.
+- **Layer B rewrite hook** — iterative, evaluation-driven rewrite loop (KGW-MinHash probe, MarkLLM, or lexical-divergence evaluator) with a deterministic de-ai generator (no model) plus Ollama / OpenAI-compatible backends.
+- **Container metadata cleaning** — C2PA/AI-metadata detection and stripping for docx/xlsx/pptx/odt/epub/pdf/svg/html/markdown, including C2PA chunks removed from *embedded images inside* those documents (port of watermarks-remover's container pipeline).
 - **Web UI + REST API** — FastAPI server with a browser UI and JSON endpoints.
-- **Regression-pinned** — 156+ assertions covering every verified behavior.
+- **Regression-pinned** — 156+ assertions covering every verified behavior, plus a port regression suite for the upstream-derived modules.
 
 ---
 
@@ -72,9 +77,18 @@ de-ai takes the opposite approach: **zero model calls**, fully deterministic out
 | `deai/profile.py` | `build_profile(corpus)`, `load_profile(path)`, `profile_distance(text, profile)`. |
 | `deai/harness.py` | `report(text, profile)` / `score(...)` — profile distance + detector-style scoring; uses `calibration.jsonl` for real-service calibration. |
 | `deai/stats.py` | `compute_stats(text)` — word/sentence metrics, tell density. |
-| `deai/watermark_probe.py` | `probe(text)` — optional A/B watermark z-score estimate. |
+| `deai/watermark_probe.py` | `probe(text)` — KGW-MinHash green-list z-score estimate (tiktoken GPT-2 BPE; tokenizers/transformers fallback). |
+| `deai/text_unicode.py` | Layer A: `inspect_text()` / `clean_text()` for invisible Unicode, homoglyphs, Bidi, emoji glue (ported). |
+| `deai/stylometry.py` | `score_text_stylometry(text)` — burstiness/MATTR/AI-ngram composite score (ported). |
+| `deai/text_detectors.py` | `run_all_text_detectors()` / `run_text_detectors()` / `detector_status()` — probe + MarkLLM + vendor-seam detectors, fail-soft protocol (ported). |
+| `deai/markllm_harness.py` | `python -m deai.markllm_harness` — MarkLLM detection worker CLI/`--serve` mode (ported). |
+| `deai/layerb.py` | `rewrite(text, ...)` — evaluation-driven Layer B loop; deterministic/print-prompt/ollama/openai-compatible backends (ported + deterministic generator). |
+| `deai/container_meta.py` | Inspect/clean C2PA + AI metadata for docx/xlsx/pptx/odt/epub/pdf/svg/html/markdown incl. embedded media (ported). |
+| `deai/image_meta.py` | PNG/JPEG/WebP/BMP/GIF/TIFF metadata sniffing + C2PA/XMP chunk stripping for embedded images (ported subset). |
+| `deai/format_dispatch.py` | `classify_bytes()` / `classify()` — route text vs container (ported subset). |
 | `app.py` | FastAPI server + static browser UI. |
 | `tests/paraphrase_regression.py` | The regression suite (run: `python tests/paraphrase_regression.py`). |
+| `tests/port_regression.py` | Port regression suite for the upstream-derived modules (run: `python tests/port_regression.py`). |
 
 ---
 
@@ -85,7 +99,7 @@ pip install -r requirements.txt
 # fastapi, uvicorn, lemminflect, wn, wordfreq
 ```
 
-`wn` (WordNet) and `lemminflect` are used for synonym/lemma lookups in the lexical pass; `wordfreq` for common-word weighting.
+`wn` (WordNet) and `lemminflect` are used for synonym/lemma lookups in the lexical pass; `wordfreq` for common-word weighting. `tiktoken` (optional) powers the watermark probe; without it the probe falls back to `tokenizers`/`transformers`, and if none are importable the probe degrades to a no-op and Layer B falls back to lexical-divergence evaluation.
 
 ---
 
@@ -107,6 +121,13 @@ Open http://127.0.0.1:8000/ in a browser.
 | `POST /api/fix` | `{"text": "...", "types": [...]}` | text with requested fixes applied |
 | `POST /api/paraphrase` | `{"text": "...", "mode": "standard"\|"deep", "scrub": bool, "profile": "name"\|null}` | rewritten text, `remaining_flags`, applied counts |
 | `POST /api/harness` | `{"text": "...", "profile": "name"\|null}` | full report: profile distance + detector-style score |
+| `POST /api/layer-a` | `{"text": "...", "aggressive": bool, "strip_emoji_glue": bool}` | invisible-Unicode inspection report + human-readable summary |
+| `POST /api/clean-layer-a` | `{"text": "...", "nfkc": bool, "aggressive_homoglyphs": bool, "normalize_spaces": bool, "strip_emoji_glue": bool, "strip_bidi": bool}` | cleaned text + per-kind remove/replace stats |
+| `POST /api/stylometry` | `{"text": "..."}` | burstiness/MATTR/AI-ngram composite score with confidence level |
+| `POST /api/detect-watermark` | `{"text": "...", "markllm_scheme": "kgw"\|..., "markllm_dir": ...}` | per-detector reports, fail-soft (probe always runs; MarkLLM only when `MARKLLM_DIR` is set; claude-text placeholder) |
+| `POST /api/layer-b` | `{"text": "...", "backend": "deterministic"\|"print-prompt"\|"ollama"\|"openai-compatible", "strength": ..., "candidates": int, "max_loops": int, ...}` | rewritten text + full loop info (attempts, evaluator, scores) |
+| `POST /api/container-inspect` | `{"file": "<base64>", "filename": "x.docx"}` | container format, C2PA/AI-metadata flags, findings, tools |
+| `POST /api/container-clean` | `{"file": "<base64>", "filename": "x.docx"}` | cleaned file as base64 + actions + post-clean verification |
 
 Example:
 
@@ -162,9 +183,10 @@ Profiles are user-local — `profiles/` is git-ignored and the server loads them
 
 ```bash
 python tests/paraphrase_regression.py
+python tests/port_regression.py
 ```
 
-Exit code `0` = all green. The suite pins 156+ behaviors: semicolon→comma, markdown emphasis (no eaten characters), comma-clause fillers, the technical-vocabulary block, burstiness CV gating, clausal moves, drift-on-re-run stability, watermark probe sanity, and performance (linear-ish token metric on ~20KB input).
+Exit code `0` = all green. The first suite pins 156+ behaviors: semicolon→comma, markdown emphasis (no eaten characters), comma-clause fillers, the technical-vocabulary block, burstiness CV gating, clausal moves, drift-on-re-run stability, watermark probe sanity, and performance (linear-ish token metric on ~20KB input). The port suite pins the upstream-derived modules: ZWSP/homoglyph cleaning, stylometry calibration, fail-soft detector reports, the deterministic Layer B loop with the probe evaluator (clean text passes; a synthetic KGW-biased input fails and exhausts attempts), format dispatch (incl. PK-zip sniffing), and C2PA stripping from embedded images inside a docx.
 
 Some blocks are optional fixtures (your own corpus / novel chapters) and are skipped when absent — the suite stays green on a fresh clone.
 
@@ -187,11 +209,20 @@ de-ai/
 │   ├── profile.py             # writing profiles
 │   ├── harness.py             # report / scoring
 │   ├── stats.py               # text metrics
-│   └── watermark_probe.py     # optional A/B watermark z-score
+│   ├── watermark_probe.py     # optional A/B watermark z-score
+│   ├── text_unicode.py        # Layer A: invisible Unicode (ported)
+│   ├── stylometry.py          # burstiness/MATTR/AI-ngram score (ported)
+│   ├── text_detectors.py      # MarkLLM + vendor-seam detectors (ported)
+│   ├── markllm_harness.py     # MarkLLM detection worker (ported)
+│   ├── layerb.py              # Layer B rewrite loop (ported)
+│   ├── container_meta.py      # container C2PA/AI-metadata (ported)
+│   ├── image_meta.py          # embedded-image metadata (ported)
+│   └── format_dispatch.py     # text vs container routing (ported)
 ├── static/
 │   └── index.html             # browser UI
 └── tests/
-    └── paraphrase_regression.py
+    ├── paraphrase_regression.py
+    └── port_regression.py
 ```
 
 ---
@@ -206,10 +237,14 @@ Honest limits of this approach — read before relying on it:
 4. **English-only.** The lexical pass relies on WordNet and English lemmatization (`lemminflect`). No support for other languages, code, or mixed-language text.
 5. **Deterministic by design → low creative variation.** Same input, same output. If you want radically different phrasings you need more seed text or external iteration — this tool won't surprise you with variety.
 6. **Heuristic NLP has edge cases.** WordNet first-sense lookup and POS heuristics are imperfect; the guardrails catch the known failure classes (documented above) but cannot be proven exhaustive for all English.
-7. **Watermark probe is optional and approximate.** `watermark_probe` needs a GPT-2 tokenizer and estimates an A/B watermark z-score; it is a *proxy*, not a measurement of any real detector. Detector scores in `harness` are local proxies unless you add real `calibration.jsonl` entries yourself.
+7. **Watermark probe is approximate.** `watermark_probe` (tiktoken GPT-2 BPE) estimates a KGW-MinHash green-list z-score; it is a *proxy*, not a measurement of any real vendor detector. Detector scores in `harness` are local proxies unless you add real `calibration.jsonl` entries yourself.
 8. **Personal data discipline is on you.** The engine reads whatever text you give it. Nothing is sent anywhere (no network calls), but don't paste sensitive content into a shared server.
 9. **Ethical note.** This tool changes *style*, not facts, and is meant for your own writing. Don't use it to misattribute others' work or to cheat academic-integrity systems — it won't make dishonest use honest.
 
 ---
+
+## Attribution
+
+The Layer A / stylometry / watermark-detection / Layer B / container-metadata modules (`text_unicode.py`, `stylometry.py`, `text_detectors.py`, `markllm_harness.py`, `layerb.py`, `container_meta.py`, `image_meta.py`, `format_dispatch.py`, and parts of `common.py`) are ports of **watermarks-remover** ([MIT](https://github.com/shounakjoshi88-a11y/watermarks-remover)) — a tool for removing AI watermarks from your own generated content — adapted to this project's text scope and API. Environment variables (`MARKLLM_DIR`, `WATERMARKS_*`) are kept from the upstream subprocess contract.
 
 *Built and tested on Windows/Python 3.x. The engine makes no network calls; everything runs locally.*
