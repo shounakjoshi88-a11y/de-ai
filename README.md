@@ -1,5 +1,7 @@
 # de-ai
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 A **deterministic, no-LLM** text rewriter that reduces the stylistic "tells" AI detectors look for in prose — without calling a language model, without changing the meaning, and without injecting new errors.
 
 It scans your text for machine-writing patterns (repetitive sentence shapes, mechanical connectives, first-sense synonym habits, flat rhythm, stilted vocabulary) and rewrites it with a hand-tuned **rule bank + deep rewrite passes**. Every behavior is pinned by a regression suite, so edits can never silently regress a fix.
@@ -248,3 +250,9 @@ Honest limits of this approach — read before relying on it:
 The Layer A / stylometry / watermark-detection / Layer B / container-metadata modules (`text_unicode.py`, `stylometry.py`, `text_detectors.py`, `markllm_harness.py`, `layerb.py`, `container_meta.py`, `image_meta.py`, `format_dispatch.py`, and parts of `common.py`) are ports of **watermarks-remover** ([MIT](https://github.com/shounakjoshi88-a11y/watermarks-remover)) — a tool for removing AI watermarks from your own generated content — adapted to this project's text scope and API. Environment variables (`MARKLLM_DIR`, `WATERMARKS_*`) are kept from the upstream subprocess contract.
 
 *Built and tested on Windows/Python 3.x. The engine makes no network calls; everything runs locally.*
+
+---
+
+## License
+
+MIT - see [LICENSE](LICENSE).
